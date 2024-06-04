@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Container, TextField, Button, List } from '@mui/material';
+import { Container, TextField, Button, List, AppBar, Toolbar, Typography, Box } from '@mui/material';
 import { Todo } from './types';
 import TodoList from './components/TodoList';
 import { getTodos, addTodo, updateTodo, deleteTodo } from './api';
+import { motion } from 'framer-motion';
 
 const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -40,20 +41,30 @@ const App: React.FC = () => {
 
   return (
     <Container>
-      <h1>Todo List</h1>
-      <TextField
-        label="New Todo"
-        value={newTodo}
-        onChange={(e) => setNewTodo(e.target.value)}
-        onKeyPress={(e) => {
-          if (e.key === 'Enter') {
-            handleAddTodo();
-          }
-        }}
-      />
-      <Button onClick={handleAddTodo} variant="contained" color="primary">
-        Add Todo
-      </Button>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6">
+            Todo List
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Box mt={4}>
+        <TextField
+          label="New Todo"
+          value={newTodo}
+          onChange={(e) => setNewTodo(e.target.value)}
+          onKeyPress={(e) => {
+            if (e.key === 'Enter') {
+              handleAddTodo();
+            }
+          }}
+          fullWidth
+          margin="normal"
+        />
+        <Button onClick={handleAddTodo} variant="contained" color="primary" fullWidth>
+          Add Todo
+        </Button>
+      </Box>
       <List>
         <TodoList todos={todos} toggleTodo={handleToggleTodo} removeTodo={handleRemoveTodo} />
       </List>

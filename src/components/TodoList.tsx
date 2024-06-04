@@ -2,6 +2,7 @@ import React from 'react';
 import { List } from '@mui/material';
 import TodoItem from './TodoItem';
 import { Todo } from '../types';
+import { AnimatePresence } from 'framer-motion';
 
 interface TodoListProps {
   todos: Todo[];
@@ -11,9 +12,11 @@ interface TodoListProps {
 
 const TodoList: React.FC<TodoListProps> = ({ todos, toggleTodo, removeTodo }) => (
   <List>
-    {todos.map(todo => (
-      <TodoItem key={todo.id} todo={todo} toggleTodo={toggleTodo} removeTodo={removeTodo} />
-    ))}
+    <AnimatePresence>
+      {todos.map(todo => (
+        <TodoItem key={todo.id} todo={todo} toggleTodo={toggleTodo} removeTodo={removeTodo} />
+      ))}
+    </AnimatePresence>
   </List>
 );
 
