@@ -4,6 +4,7 @@ import { Todo } from './types';
 import TodoList from './components/TodoList';
 import { getTodos, addTodo, updateTodo, deleteTodo } from './api';
 import { motion } from 'framer-motion';
+import './App.css'; // Make sure to import the CSS file
 
 const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -45,26 +46,17 @@ const App: React.FC = () => {
   };
 
   return (
-    <Box
-      sx={{
-        background: 'linear-gradient(to right, #ffecd2, #fcb69f)',
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}
-    >
+    <Box className="gradient-background">
       <Container maxWidth="sm">
-        <AppBar position="static">
+        <AppBar position="static" className="todo-header">
           <Toolbar>
             <Typography variant="h6">
               Todo List
             </Typography>
           </Toolbar>
         </AppBar>
-        <Box mt={4} component={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
-          <Paper elevation={3} style={{ padding: '1em' }}>
+        <Box className="todo-container" component={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
+          <Paper elevation={3} style={{ padding: '1em', backgroundColor: 'transparent', boxShadow: 'none' }}>
             <TextField
               label="New Todo"
               value={newTodo}
@@ -82,9 +74,11 @@ const App: React.FC = () => {
             </Button>
           </Paper>
         </Box>
-        <List component={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5, duration: 1 }}>
-          <TodoList todos={todos} toggleTodo={handleToggleTodo} removeTodo={handleRemoveTodo} editTodo={handleEditTodo} />
-        </List>
+        <Box className="todo-list" component={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5, duration: 1 }}>
+          <List>
+            <TodoList todos={todos} toggleTodo={handleToggleTodo} removeTodo={handleRemoveTodo} editTodo={handleEditTodo} />
+          </List>
+        </Box>
       </Container>
     </Box>
   );
