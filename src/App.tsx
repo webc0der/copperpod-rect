@@ -39,6 +39,11 @@ const App: React.FC = () => {
     setTodos(todos.filter(todo => todo.id !== id));
   };
 
+  const handleEditTodo = async (id: number, title: string) => {
+    const updatedTodo = await updateTodo(id, { title });
+    setTodos(todos.map(todo => (todo.id === id ? updatedTodo : todo)));
+  };
+
   return (
     <Box
       sx={{
@@ -78,7 +83,7 @@ const App: React.FC = () => {
           </Paper>
         </Box>
         <List component={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5, duration: 1 }}>
-          <TodoList todos={todos} toggleTodo={handleToggleTodo} removeTodo={handleRemoveTodo} />
+          <TodoList todos={todos} toggleTodo={handleToggleTodo} removeTodo={handleRemoveTodo} editTodo={handleEditTodo} />
         </List>
       </Container>
     </Box>
