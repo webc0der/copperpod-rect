@@ -1,27 +1,62 @@
-import React, { useState, useEffect } from 'react';
-import { Container } from '@mui/material';
-import { fetchTodos } from './api';
-import TodoList from './components/TodoList';
+import React, { useEffect, useState } from 'react';
+import { Container, TextField, Button, List } from '@mui/material';
 import { Todo } from './types';
+import TodoList from './components/TodoList';
+import { getTodos, addTodo, updateTodo, deleteTodo } from './api';
 
 const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
+  const [newTodo, setNewTodo] = useState<string>('');
 
   useEffect(() => {
-    fetchTodos()
-      .then(response => setTodos(response.data.slice(0, 10))) // Limit to 10 items
-      .catch(error => console.error('Error fetching todos:', error));
+    fetchTodos();
   }, []);
 
-  const toggleTodo = (id: number) => {
-    setTodos(todos.map(todo =>
-      todo.id === id ? { ...todo, completed: !todo.completed } : todo
-    ));
+  const fetchTodos = async () => {
+    const fetchedTodos = await getTodos();
+    setTodos(fetchedTodos);
+  };
+
+  const handleAddTodo = async () => {
+    if (newTodo.trim() !== '') {
+      const addedTodo = await addTodo(newTodo);
+      setTodos([...todos, addedTodo]);
+      setNewTodo('');
+    }
+  };
+
+  const handleToggleTodo = async (id: number) => {
+    const todo = todos.find(todo => todo.id === id);
+    if (todo) {
+      const updatedTodo = await updateTodo(id, { completed: !todo.completed });
+      setTodos(todos.map(todo => (todo.id === id ? updatedTodo : todo)));
+    }
+  };
+
+  const handleRemoveTodo = async (id: number) => {
+    await deleteTodo(id);
+    setTodos(todos.filter(todo => todo.id !== id));
   };
 
   return (
     <Container>
-      <TodoList todos={todos} toggleTodo={toggleTodo} />
+      <h1>Todo List</h1>
+      <TextField
+        label="New Todo"
+        value={newTodo}
+        onChange={(e) => setNewTodo(e.target.value)}
+        onKeyPress={(e) => {
+          if (e.key === 'Enter') {
+            handleAddTodo();
+          }
+        }}
+      />
+      <Button onClick={handleAddTodo} variant="contained" color="primary">
+        Add Todo
+      </Button>
+      <List>
+        <TodoList todos={todos} toggleTodo={handleToggleTodo} removeTodo={handleRemoveTodo} />
+      </List>
     </Container>
   );
 };
