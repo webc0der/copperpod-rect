@@ -1,27 +1,27 @@
 /* App.css */
 .gradient-background {
-    background: linear-gradient(to right, #6a11cb, #2575fc);
+    background: linear-gradient(to right, #11afcb, #b188f3);
     background-size: cover;
     background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start; /* Changed from center to flex-start to allow content to push down */
+    justify-content: flex-start;
     min-height: 100vh;
-    padding: 20px; /* Add padding to push the content down */
+    padding: 20px;
   }
   
   .todo-container {
     background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 16px; /* Make the edges circular */
+    border-radius: 16px;
     padding: 20px;
     width: 100%;
     max-width: 500px;
-    margin: 20px 0; /* Add margin to create space between containers */
+    margin: 20px 0;
   }
   
   .todo-header {
-    background-color: #ffffff;
+    background: linear-gradient(to right, #67e2f85b, #a167ff8f);
     border-radius: 16px;
     padding: 10px 20px;
     margin-bottom: 20px;
@@ -30,7 +30,7 @@
   
   .todo-list {
     background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 16px; /* Make the edges circular */
+    border-radius: 16px;
     padding: 20px;
     width: 100%;
     max-width: 500px;

@@ -54,10 +54,10 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, toggleTodo, removeTodo, editT
               onClick={handleEdit}
             />
           )}
-          <IconButton edge="end" onClick={handleEdit}>
+          <IconButton edge="end" onClick={handleEdit} data-testid="edit-button">
             <EditIcon />
           </IconButton>
-          <IconButton edge="end" onClick={() => removeTodo(todo.id)}>
+          <IconButton edge="end" onClick={() => removeTodo(todo.id)} data-testid="delete-button">
             <DeleteIcon />
           </IconButton>
         </ListItem>

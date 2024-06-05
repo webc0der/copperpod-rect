@@ -4,7 +4,7 @@ import { Todo } from './types';
 import TodoList from './components/TodoList';
 import { getTodos, addTodo, updateTodo, deleteTodo } from './api';
 import { motion } from 'framer-motion';
-import './App.css'; // Make sure to import the CSS file
+import './App.css';
 
 const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -50,7 +50,7 @@ const App: React.FC = () => {
       <Container maxWidth="sm">
         <AppBar position="static" className="todo-header">
           <Toolbar>
-            <Typography variant="h6">
+          <Typography variant="h4" style={{ fontWeight: 'bold', flexGrow: 1, textAlign: 'center' }}>
               Todo List
             </Typography>
           </Toolbar>
@@ -69,7 +69,20 @@ const App: React.FC = () => {
               fullWidth
               margin="normal"
             />
-            <Button onClick={handleAddTodo} variant="contained" color="primary" fullWidth>
+            <Button
+            fullWidth 
+            onClick={handleAddTodo} 
+            variant="contained" 
+            sx={{
+              backgroundColor: '#11afcb',
+              color: 'white',
+              borderRadius: '16px',
+              mt: 2,
+              '&:hover': {
+                backgroundColor: '#b188f3',
+              },
+            }}
+            >
               Add Todo
             </Button>
           </Paper>

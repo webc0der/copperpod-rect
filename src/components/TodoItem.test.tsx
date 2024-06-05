@@ -1,3 +1,5 @@
+// todoitem.test.tsx
+
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import TodoItem from './TodoItem';
@@ -15,18 +17,18 @@ test('renders TodoItem', () => {
   expect(listItem).toBeInTheDocument();
   
   fireEvent.click(listItem);
-  expect(editTodo).not.toHaveBeenCalled(); // Ensuring edit is not called on title click
-  expect(toggleTodo).not.toHaveBeenCalled(); // Ensuring toggle is not called on title click
+  expect(editTodo).not.toHaveBeenCalled();
+  expect(toggleTodo).not.toHaveBeenCalled();
 
   const checkbox = screen.getByRole('checkbox');
   fireEvent.click(checkbox);
   expect(toggleTodo).toHaveBeenCalledWith(1);
 
-  const deleteButton = screen.getByRole('button', { name: /delete/i });
+  const deleteButton = screen.getByTestId('delete-button');
   fireEvent.click(deleteButton);
   expect(removeTodo).toHaveBeenCalledWith(1);
 
-  const editButton = screen.getByRole('button', { name: /edit/i });
+  const editButton = screen.getByTestId('edit-button');
   fireEvent.click(editButton);
-  expect(editTodo).not.toHaveBeenCalled(); // Ensure edit is handled internally, actual save will call editTodo
+  expect(editTodo).not.toHaveBeenCalled();
 });
